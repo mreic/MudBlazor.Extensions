@@ -106,6 +106,11 @@ public class CaptureOptions
     /// </summary>
     public MudExPosition OverlayCustomPosition { get; set; } = new("0", "0");
 
+    /// <summary>
+    /// Options for media recorder to control recording bitrates
+    /// </summary>
+    [JsonInclude] 
+    public MediaRecorderOptions MediaRecorderOptions { get; set; } = new();
 
     /// <summary>
     /// Returns true when anything to capture is set.

@@ -15432,6 +15432,11 @@
             For the Overlay you can set <see cref="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.OverlayPosition"/> to <see cref="F:MudBlazor.DialogPosition.Custom"/> and set the custom position for the overlay here.
             </summary>
         </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.MediaRecorderOptions">
+            <summary>
+            Options for media recorder to control recording bitrates
+            </summary>
+        </member>
         <member name="M:MudBlazor.Extensions.Core.Capture.CaptureOptions.Valid">
             <summary>
             Returns true when anything to capture is set.
@@ -18061,6 +18066,21 @@
         <member name="F:MudBlazor.Extensions.Core.W3C.IncludeExclude.Exclude">
             <summary>
             Exclude the feature.
+            </summary>
+        </member>
+        <member name="T:MudBlazor.Extensions.Core.W3C.MediaRecorderOptions">
+            <summary>
+            Represents options for MediaRecorder-JS Class. Including Video- and Audiobitrate settings.
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.W3C.MediaRecorderOptions.VideoBitsPerSecond">
+            <summary>
+            Represents the bitrate for video recording
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.W3C.MediaRecorderOptions.AudioBitsPerSecond">
+            <summary>
+            Represents the bitrate for audio recording
             </summary>
         </member>
         <member name="T:MudBlazor.Extensions.Core.W3C.MediaStreamTrack">

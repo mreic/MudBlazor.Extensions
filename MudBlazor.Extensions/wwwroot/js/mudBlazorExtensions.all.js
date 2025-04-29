@@ -271,35 +271,35 @@ class MudExCapture {
 
         // Main recorder
         if (streams.screen) {
-            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType });
+            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             screenRecorder.ondataavailable = event => chunks.screen.push(event.data);
             recorders.push(screenRecorder);
         }
 
         // System Audio Recorder
         if (streams.systemAudio) {
-            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType });
+            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType, audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             systemAudioRecorder.ondataavailable = event => chunks.systemAudio.push(event.data);
             recorders.push(systemAudioRecorder);
         }
 
         // Cam Recorder
         if (streams.camera) {
-            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType });
+            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             cameraRecorder.ondataavailable = event => chunks.camera.push(event.data);
             recorders.push(cameraRecorder);
         }
 
         // Mic Audio Recorder
         if (streams.audio) {
-            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType });
+            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType, audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             audioRecorder.ondataavailable = event => chunks.audio.push(event.data);
             recorders.push(audioRecorder);
         }
 
         // Combined Recorder
         if (combinedStream) {
-            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType });
+            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000), audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             combinedRecorder.ondataavailable = event => chunks.combined.push(event.data);
             combinedRecorder.onstop = async () => {
                 if (canvas && canvas.stream) {
