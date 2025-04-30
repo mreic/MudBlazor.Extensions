@@ -13,22 +13,22 @@ namespace MudBlazor.Extensions.Core.Capture
         /// <summary>
         /// Indicates, if screen should be recorded seperately
         /// </summary>
-        public bool SeperateScreenRecoring { get; set; } = true;
+        public bool SeperateScreenRecording { get; set; } = true;
 
         /// <summary>
         /// Indicates, if system audio should be recorded seperately
         /// </summary>
-        public bool SeperateSystemAudioRecoring { get; set; } = true;
+        public bool SeperateSystemAudioRecording { get; set; } = true;
 
         /// <summary>
         /// Indicates, if camera should be recorded seperately
         /// </summary>
-        public bool SeperateCameraRecoring { get; set; } = true;
+        public bool SeperateCameraRecording { get; set; } = true;
 
         /// <summary>
         /// Indicates, if mic audio should be recorded seperately
         /// </summary>
-        public bool SeperateMicAudioRecoring { get; set; } = true;
+        public bool SeperateMicAudioRecording { get; set; } = true;
 
 
         /// <summary>
@@ -40,6 +40,6 @@ namespace MudBlazor.Extensions.Core.Capture
         /// <summary>
         /// Creates a new instance of <see cref="RecordingOptions"/> setting all seperate streams to no recording.
         /// </summary>
-        public static RecordingOptions OnlyCombinedStream => new() { SeperateCameraRecoring = false, SeperateMicAudioRecoring = false, SeperateScreenRecoring = false, SeperateSystemAudioRecoring = false };
+        public static RecordingOptions OnlyCombinedStream => new() { SeperateCameraRecording = false, SeperateMicAudioRecording = false, SeperateScreenRecording = false, SeperateSystemAudioRecording = false };
     } 
 }

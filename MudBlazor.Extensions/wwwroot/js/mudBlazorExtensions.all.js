@@ -590,6 +590,7 @@ class MudExCapture {
             cameraData: await createBlobData(camera, options.contentType),
             audioData: await createBlobData(audio, options.audioContentType || 'audio/webm'),
             systemAudioData: await createBlobData(systemAudio, options.audioContentType || 'audio/webm'),
+            //combinedData: await createBlobData(combined, options.contentType + ", " + options.audioContentType),
             combinedData: await createBlobData(combined, options.contentType),
             options: options,
             captureId: id

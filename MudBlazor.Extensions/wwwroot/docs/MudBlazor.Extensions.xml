@@ -15592,22 +15592,22 @@
             Use the screen as overlay over camera.
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateScreenRecoring">
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateScreenRecording">
             <summary>
             Indicates, if screen should be recorded seperately
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateSystemAudioRecoring">
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateSystemAudioRecording">
             <summary>
             Indicates, if system audio should be recorded seperately
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateCameraRecoring">
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateCameraRecording">
             <summary>
             Indicates, if camera should be recorded seperately
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateMicAudioRecoring">
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateMicAudioRecording">
             <summary>
             Indicates, if mic audio should be recorded seperately
             </summary>

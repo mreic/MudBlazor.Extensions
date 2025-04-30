@@ -214,19 +214,19 @@ public partial class MudExCaptureOptionsEdit : IObjectEditorWithCustomPropertyRe
 
     private void ConfigureRecordingOptions(ObjectEditMeta<RecordingOptions> meta)
     {
-        meta.Property(m => m.SeperateScreenRecoring).WithLabel(TryLocalize("Record screen seperately")).WrapInMudItem(i => {
+        meta.Property(m => m.SeperateScreenRecording).WithLabel(TryLocalize("Record screen seperately")).WrapInMudItem(i => {
             i.sm = 12;
             i.md = 6;
         }); 
-        meta.Property(m => m.SeperateSystemAudioRecoring).WithLabel(TryLocalize("Record system audio seperately")).WrapInMudItem(i => {
+        meta.Property(m => m.SeperateSystemAudioRecording).WithLabel(TryLocalize("Record system audio seperately")).WrapInMudItem(i => {
             i.sm = 12;
             i.md = 6;
         });
-        meta.Property(m => m.SeperateCameraRecoring).WithLabel(TryLocalize("Record camera seperately")).WrapInMudItem(i => {
+        meta.Property(m => m.SeperateCameraRecording).WithLabel(TryLocalize("Record camera seperately")).WrapInMudItem(i => {
             i.sm = 12;
             i.md = 6;
         });
-        meta.Property(m => m.SeperateMicAudioRecoring).WithLabel(TryLocalize("Record mic audio seperately")).WrapInMudItem(i => {
+        meta.Property(m => m.SeperateMicAudioRecording).WithLabel(TryLocalize("Record mic audio seperately")).WrapInMudItem(i => {
             i.sm = 12;
             i.md = 6;
         });
