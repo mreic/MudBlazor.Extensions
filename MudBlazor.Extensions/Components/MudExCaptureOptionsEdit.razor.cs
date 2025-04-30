@@ -11,6 +11,7 @@ using MudBlazor.Extensions.Helper;
 using MudBlazor.Extensions.Options;
 using MudBlazor.Interop;
 using MudBlazor.Services;
+using Newtonsoft.Json;
 using Nextended.Core;
 using Nextended.Core.Extensions;
 
@@ -197,6 +198,42 @@ public partial class MudExCaptureOptionsEdit : IObjectEditorWithCustomPropertyRe
         {
             await VideoDeviceChanged(res.Result);
         }
+    }
+
+    private async Task ChangeRecordingOptionsAsync(MouseEventArgs obj)
+    {
+        var toEdit = (Value.RecordingOptions ??= new RecordingOptions()).Clone();
+
+        var res = await DialogService.EditObjectAsync(toEdit, TryLocalize("Edit Recording Options"), Icons.Material.Filled.Edit,
+            DialogOptionsEx.DefaultDialogOptions.CloneOptions().SetProperties(_dialogOptions), ConfigureRecordingOptions);
+        if (!res.Cancelled)
+        {
+            Value.RecordingOptions = res.Result;
+        }
+    }
+
+    private void ConfigureRecordingOptions(ObjectEditMeta<RecordingOptions> meta)
+    {
+        meta.Property(m => m.SeperateScreenRecoring).WithLabel(TryLocalize("Record screen seperately")).WrapInMudItem(i => {
+            i.sm = 12;
+            i.md = 6;
+        }); 
+        meta.Property(m => m.SeperateSystemAudioRecoring).WithLabel(TryLocalize("Record system audio seperately")).WrapInMudItem(i => {
+            i.sm = 12;
+            i.md = 6;
+        });
+        meta.Property(m => m.SeperateCameraRecoring).WithLabel(TryLocalize("Record camera seperately")).WrapInMudItem(i => {
+            i.sm = 12;
+            i.md = 6;
+        });
+        meta.Property(m => m.SeperateMicAudioRecoring).WithLabel(TryLocalize("Record mic audio seperately")).WrapInMudItem(i => {
+            i.sm = 12;
+            i.md = 6;
+        });
+        meta.Property(m => m.MediaRecorderOptions).WithGroup(TryLocalize("Bitratenkonfiguration"));
+        meta.Property(m => m.MediaRecorderOptions.VideoBitsPerSecond).WithGroup(TryLocalize("Bitratenkonfiguration")).WithLabel(TryLocalize("Video Bitrate"));
+        meta.Property(m => m.MediaRecorderOptions.AudioBitsPerSecond).WithGroup(TryLocalize("Bitratenkonfiguration")).WithLabel(TryLocalize("Audio Bitrate"));
+      
     }
 
     private Task ChangeMediaOptionsAsync(MouseEventArgs obj)

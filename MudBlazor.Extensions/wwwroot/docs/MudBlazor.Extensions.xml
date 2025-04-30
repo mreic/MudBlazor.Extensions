@@ -15432,9 +15432,9 @@
             For the Overlay you can set <see cref="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.OverlayPosition"/> to <see cref="F:MudBlazor.DialogPosition.Custom"/> and set the custom position for the overlay here.
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.MediaRecorderOptions">
+        <member name="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.RecordingOptions">
             <summary>
-            Options for media recorder to control recording bitrates
+            Options for which seperate streams should be recorded.
             </summary>
         </member>
         <member name="M:MudBlazor.Extensions.Core.Capture.CaptureOptions.Valid">
@@ -15497,6 +15497,11 @@
             Creates a new instance of <see cref="T:MudBlazor.Extensions.Core.Capture.CaptureOptions"/> setting to capture the screen, camera and audio with the screen as overlay over the camera.
             </summary>
         </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.OnlyCombinedStream">
+            <summary>
+            Creates a new instance of <see cref="T:MudBlazor.Extensions.Core.Capture.CaptureOptions"/> setting the <see cref="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.RecordingOptions"/> to <see cref="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.OnlyCombinedStream"/>.
+            </summary>
+        </member>
         <member name="T:MudBlazor.Extensions.Core.Capture.CaptureOptionsEditMode">
             <summary>
             The edit mode for the capture options dialog.
@@ -15510,6 +15515,11 @@
         <member name="F:MudBlazor.Extensions.Core.Capture.CaptureOptionsEditMode.Simple">
             <summary>
             The simple edit mode.
+            </summary>
+        </member>
+        <member name="M:MudBlazor.Extensions.Core.Capture.CaptureOptionsExtensions.OnlyCombinedStream(MudBlazor.Extensions.Core.Capture.CaptureOptions)">
+            <summary>
+            Creates a new instance of <see cref="T:MudBlazor.Extensions.Core.Capture.CaptureOptions"/> setting the current <see cref="T:MudBlazor.Extensions.Core.Capture.RecordingOptions"/> to <see cref="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.OnlyCombinedStream"/>.
             </summary>
         </member>
         <member name="T:MudBlazor.Extensions.Core.Capture.CaptureResult">
@@ -15580,6 +15590,36 @@
         <member name="F:MudBlazor.Extensions.Core.Capture.OverlaySource.CapturedScreen">
             <summary>
             Use the screen as overlay over camera.
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateScreenRecoring">
+            <summary>
+            Indicates, if screen should be recorded seperately
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateSystemAudioRecoring">
+            <summary>
+            Indicates, if system audio should be recorded seperately
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateCameraRecoring">
+            <summary>
+            Indicates, if camera should be recorded seperately
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.SeperateMicAudioRecoring">
+            <summary>
+            Indicates, if mic audio should be recorded seperately
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.MediaRecorderOptions">
+            <summary>
+            Options for media recorder to control recording bitrates
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.RecordingOptions.OnlyCombinedStream">
+            <summary>
+            Creates a new instance of <see cref="T:MudBlazor.Extensions.Core.Capture.RecordingOptions"/> setting all seperate streams to no recording.
             </summary>
         </member>
         <member name="T:MudBlazor.Extensions.Core.Capture.SimpleCaptureOptions">

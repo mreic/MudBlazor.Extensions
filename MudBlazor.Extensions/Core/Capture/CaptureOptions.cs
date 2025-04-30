@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using MudBlazor.Extensions.Core.W3C;
 using Nextended.Core.Extensions;
 using OneOf;
@@ -31,7 +32,7 @@ public class CaptureOptions
     /// If this is true a photo will be taken instead of a video.
     /// </summary>
     public bool TakePhoto { get; set; }
-    
+
     [JsonInclude]
     internal bool CaptureScreen
     {
@@ -107,10 +108,10 @@ public class CaptureOptions
     public MudExPosition OverlayCustomPosition { get; set; } = new("0", "0");
 
     /// <summary>
-    /// Options for media recorder to control recording bitrates
+    /// Options for which seperate streams should be recorded.
     /// </summary>
-    [JsonInclude] 
-    public MediaRecorderOptions MediaRecorderOptions { get; set; } = new();
+    [JsonInclude]
+    public RecordingOptions RecordingOptions { get; set; } = new();
 
     /// <summary>
     /// Returns true when anything to capture is set.
@@ -155,7 +156,7 @@ public class CaptureOptions
     /// <summary>
     /// Creates a new instance of <see cref="CaptureOptions"/> setting to capture the screen only.
     /// </summary>
-    public static CaptureOptions ScreenOnly => new() { CaptureScreen = true};
+    public static CaptureOptions ScreenOnly => new() { CaptureScreen = true };
 
     /// <summary>
     /// Creates a new instance of <see cref="CaptureOptions"/> setting to capture the camera only.
@@ -196,7 +197,13 @@ public class CaptureOptions
     /// Creates a new instance of <see cref="CaptureOptions"/> setting to capture the screen, camera and audio with the screen as overlay over the camera.
     /// </summary>
     public static CaptureOptions CameraScreenAndAudio => ScreenCameraAndAudio.SetProperties(o => o.OverlaySource = OverlaySource.CapturedScreen);
-    
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CaptureOptions"/> setting the <see cref="RecordingOptions"/> to <see cref="RecordingOptions.OnlyCombinedStream"/>.
+    /// </summary>
+    public static CaptureOptions OnlyCombinedStream => new() { RecordingOptions = RecordingOptions.OnlyCombinedStream };
+
+
     #endregion
 
 

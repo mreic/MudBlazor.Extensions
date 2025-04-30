@@ -173,8 +173,10 @@
                                            TimeFormat="@CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern"
                                            Culture="@CultureInfo.CurrentCulture"></MudTimePicker>
                         }
-                        <MudTextField T="long?" @bind-Value="Value.MediaRecorderOptions.VideoBitsPerSecond" Clearable="true" Class="ml-1 mt-1" HelperText="@TryLocalize("2500000 equals 2.5 MBit/s ")" Label="@TryLocalize("Video Bitrate")"></MudTextField>
-                        <MudTextField T="long?" @bind-Value="Value.MediaRecorderOptions.AudioBitsPerSecond" Clearable="true" Class="ml-1 mt-1" HelperText="@TryLocalize("128000 equals 128 kBit/s ")" Label="@TryLocalize("Audio Bitrate")"></MudTextField>
+                        <MudFab Class="ml-1 mt-3" OnClick="@ChangeRecordingOptionsAsync" StartIcon="@Icons.Material.Filled.VideoSettings" Label="@TryLocalize("Change Recording Options")" />
+
+                        <!--<MudTextField T="long?" @bind-Value="Value.MediaRecorderOptions.VideoBitsPerSecond" Clearable="true" Class="ml-1 mt-1" HelperText="@TryLocalize("2500000 equals 2.5 MBit/s ")" Label="@TryLocalize("Video Bitrate")"></MudTextField>
+                        <MudTextField T="long?" @bind-Value="Value.MediaRecorderOptions.AudioBitsPerSecond" Clearable="true" Class="ml-1 mt-1" HelperText="@TryLocalize("128000 equals 128 kBit/s ")" Label="@TryLocalize("Audio Bitrate")"></MudTextField>-->
                     </MudExGroupBox>
                 </MudStack>
             </Right>

@@ -58,6 +58,8 @@
             }
             //stream.getTracks().forEach(track => track.stop());
             this._preselected[selectedTrack.id] = stream;
+            console.info("selectedTrack.id:\t" + selectedTrack.id);
+            console.info("deviceId:\t" + selectedTrack.getSettings().deviceId);
             return {
                 id: selectedTrack.id,
                 label: selectedTrack.label,
@@ -270,36 +272,36 @@
         const recorders = [];
 
         // Main recorder
-        if (streams.screen) {
-            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
+        if (streams.screen && options.recordingOptions.seperateScreenRecording) {
+            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             screenRecorder.ondataavailable = event => chunks.screen.push(event.data);
             recorders.push(screenRecorder);
         }
 
         // System Audio Recorder
-        if (streams.systemAudio) {
-            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType, audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
+        if (streams.systemAudio && options.recordingOptions.seperateSystemAudioRecording) {
+            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType, audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             systemAudioRecorder.ondataavailable = event => chunks.systemAudio.push(event.data);
             recorders.push(systemAudioRecorder);
         }
 
         // Cam Recorder
-        if (streams.camera) {
-            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
+        if (streams.camera && options.recordingOptions.seperateCameraRecording) {
+            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             cameraRecorder.ondataavailable = event => chunks.camera.push(event.data);
             recorders.push(cameraRecorder);
         }
 
         // Mic Audio Recorder
-        if (streams.audio) {
-            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType, audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
+        if (streams.audio && options.recordingOptions.seperateMicAudioRecording) {
+            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType, audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             audioRecorder.ondataavailable = event => chunks.audio.push(event.data);
             recorders.push(audioRecorder);
         }
 
         // Combined Recorder
         if (combinedStream) {
-            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType, videoBitsPerSecond: (options.mediaRecorderOptions.videoBitsPerSecond ?? 2500000), audioBitsPerSecond: (options.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
+            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000), audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             combinedRecorder.ondataavailable = event => chunks.combined.push(event.data);
             combinedRecorder.onstop = async () => {
                 if (canvas && canvas.stream) {
