@@ -57,9 +57,7 @@
                 element.play();
             }
             //stream.getTracks().forEach(track => track.stop());
-            this._preselected[selectedTrack.id] = stream;
-            console.info("selectedTrack.id:\t" + selectedTrack.id);
-            console.info("deviceId:\t" + selectedTrack.getSettings().deviceId);
+            this._preselected[selectedTrack.id] = this._preselected[selectedTrack.getSettings().deviceId] = stream;
             return {
                 id: selectedTrack.id,
                 label: selectedTrack.label,
@@ -143,19 +141,21 @@
                     recorder.stop();
                 } catch (e) { }
             });
-            recording.streams.forEach(stream => {
-                if (stream && typeof stream.getTracks === 'function') {
-                    stream.getTracks().forEach(track => {
-                        try {
-                            track.stop();
-                        } catch (e) { }
-                    });
+            if (recording.options.stopStreamsOnStopRecording) {
+                recording.streams.forEach(stream => {
+                    if (stream && typeof stream.getTracks === 'function') {
+                        stream.getTracks().forEach(track => {
+                            try {
+                                track.stop();
+                            } catch (e) { }
+                        });
+                    }
+                });
+                if (recording.audioContext) {
+                    try {
+                        recording.audioContext.close();
+                    } catch (e) { }
                 }
-            });
-            if (recording.audioContext) {
-                try {
-                    recording.audioContext.close();
-                } catch (e) { }
             }
             delete this.recordings[id];
         }
@@ -238,16 +238,24 @@
                 ? options.videoDevice
                 : options.videoDevice?.deviceId;
 
-            const constraints = typeof options.videoDevice === 'string' ? {} : options.videoDevice;
-
-            const videoParam = this.prepareVideoConstraints(videoDeviceId, constraints);
-
-            try {
-                streams.camera = await navigator.mediaDevices.getUserMedia(videoParam);
-
-            } catch (e) {
-                console.error('Error while accessing the camera:', e);
+            if (options.videoDevice && this._preselected[videoDeviceId]) {
+                streams.camera = this._preselected[videoDeviceId];
+                //delete this._preselected[options.screenSource.id];
             }
+            else {
+                const constraints = typeof options.videoDevice === 'string' ? {} : options.videoDevice;
+
+                const videoParam = this.prepareVideoConstraints(videoDeviceId, constraints);
+
+                try {
+                    streams.camera = await navigator.mediaDevices.getUserMedia(videoParam);
+
+                } catch (e) {
+                    console.error('Error while accessing the camera:', e);
+                }
+            }
+
+            
         }
 
         // Audio Streams
@@ -320,7 +328,8 @@
             systemAudioStream: streams.systemAudio,
             combinedStream,
             canvas,
-            audioContext: streams.audioContext
+            audioContext: streams.audioContext,
+            options
         };
 
         if (result.screenStream) {

@@ -114,6 +114,11 @@ public class CaptureOptions
     public RecordingOptions RecordingOptions { get; set; } = new();
 
     /// <summary>
+    /// Indicates if streams should be stopped when Recording is stopped.
+    /// </summary>
+    public bool StopStreamsOnStopRecording { get; set; } = true;
+
+    /// <summary>
     /// Returns true when anything to capture is set.
     /// </summary>
     public bool Valid()
