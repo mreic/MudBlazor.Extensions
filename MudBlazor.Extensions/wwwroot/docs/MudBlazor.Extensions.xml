@@ -15437,6 +15437,11 @@
             Options for which seperate streams should be recorded.
             </summary>
         </member>
+        <member name="P:MudBlazor.Extensions.Core.Capture.CaptureOptions.StopStreamsOnStopRecording">
+            <summary>
+            Indicates if streams should be stopped when Recording is stopped.
+            </summary>
+        </member>
         <member name="M:MudBlazor.Extensions.Core.Capture.CaptureOptions.Valid">
             <summary>
             Returns true when anything to capture is set.

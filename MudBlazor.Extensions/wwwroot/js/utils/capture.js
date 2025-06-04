@@ -79,6 +79,9 @@
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
             delete this._preselected[trackId];
+            if (stream.getVideoTracks()[0].getSettings().deviceId) {
+                delete this._preselected[stream.getVideoTracks()[0].getSettings().deviceId];
+            }
         }
     }
 
