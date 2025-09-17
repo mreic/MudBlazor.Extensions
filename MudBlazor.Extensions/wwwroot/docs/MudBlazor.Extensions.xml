@@ -2910,6 +2910,12 @@
             Set the status text to display in center of file display
             </summary>
         </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.OpenFileInNewTabAsync">
+            <summary>
+            Opens the file in a new tab
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.RemoveStatusTextAsync">
             <summary>
             Remove the status text
@@ -2925,6 +2931,31 @@
             <summary>
             Returns the tag and attributes for the file
             </summary>
+        </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.DownloadFileAsync">
+            <summary>
+            Downloads the file using the browser download functionality.
+            </summary>
+        </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.GetFileFinfosAsync(System.Boolean)">
+            <summary>
+            Returns the file infos as dictionary with keys like File, ContentType, Url, Size and more
+            </summary>
+            <param name="withEmptyValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.ShowInfoFileInfoAsync">
+            <summary>
+            Shows the info dialog with file information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.ShowInfoFileInfoAsync(System.Boolean)">
+            <summary>
+            Shows the info dialog with file information
+            </summary>
+            <param name="showEmptyValues"></param>
+            <returns></returns>
         </member>
         <member name="M:MudBlazor.Extensions.Components.MudExFileDisplay.DisposeAsync">
             <inheritdoc />
@@ -3167,41 +3198,6 @@
             The name of the component
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.Value">
-            <summary>
-            The Current markdown string provided from file
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.CodeBlockTheme">
-            <summary>
-            The theme of the code block
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.LinkCommand">
-            <summary>
-            LinkCommand
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.TableCellMinWidth">
-            <summary>
-            TableCellMinWidth
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.Styling">
-            <summary>
-            Styling
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.OverrideLinkUrl">
-            <summary>
-            OverrideLinkUrl
-            </summary>
-        </member>
-        <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.OverrideHeaderTypo">
-            <summary>
-            OverrideHeaderTypo
-            </summary>
-        </member>
         <member name="P:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.FileDisplayInfos">
             <summary>
             The file display infos
@@ -3218,9 +3214,6 @@
             </summary>
         </member>
         <member name="M:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
-            <inheritdoc />
-        </member>
-        <member name="M:MudBlazor.Extensions.Components.MudExFileDisplayMarkdown.ImportModuleAndCreateJsAsync">
             <inheritdoc />
         </member>
         <member name="T:MudBlazor.Extensions.Components.MudExFileDisplayOfficeLive">
@@ -5588,6 +5581,19 @@
             Set custom header background color.
             </summary>
         </member>
+        <member name="T:MudBlazor.Extensions.Components.MudExMarkdown">
+            <summary>
+            Simple component to display markdown
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Components.MudExMarkdown.CodeBlockTheme">
+            <summary>
+            The theme of the code block
+            </summary>
+        </member>
+        <member name="M:MudBlazor.Extensions.Components.MudExMarkdown.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
         <member name="T:MudBlazor.Extensions.Components.MudExMessageDialog">
             <summary>
             Simple MessageDialog
@@ -5874,6 +5880,11 @@
         <member name="P:MudBlazor.Extensions.Components.MudExPromptDialog.OkText">
             <summary>
             The text of the "Ok" button.
+            </summary>
+        </member>
+        <member name="P:MudBlazor.Extensions.Components.MudExPromptDialog.OkColor">
+            <summary>
+            Color for icon
             </summary>
         </member>
         <member name="P:MudBlazor.Extensions.Components.MudExPromptDialog.CancelText">
@@ -9383,6 +9394,16 @@
             Use MudBlazor expansion panel
             </summary>
         </member>
+        <member name="F:MudBlazor.Extensions.Components.ObjectEdit.GroupingStyle.Tabs">
+            <summary>
+            Grouping with tabs
+            </summary>
+        </member>
+        <member name="F:MudBlazor.Extensions.Components.ObjectEdit.GroupingStyle.None">
+            <summary>
+            No grouping style
+            </summary>
+        </member>
         <member name="T:MudBlazor.Extensions.Components.ObjectEdit.PropertyFilterMode">
             <summary>
             Specifies the property filter mode.
@@ -9848,6 +9869,7 @@
         <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.GroupingStyle">
             <summary>
             The grouping style for the component.
+            Here also <see cref="F:MudBlazor.Extensions.Components.ObjectEdit.GroupingStyle.None"/> is possible to disable grouping styles but properties are grouped by groups anyway.
             </summary>
         </member>
         <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.FilterMode">
@@ -9883,6 +9905,7 @@
         <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.DisableGrouping">
             <summary>
             Whether to disable grouping.
+            However if you specify a <see cref="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.DefaultGroupName"/> everything is ungrouped under this group name.
             </summary>
         </member>
         <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.DefaultGroupName">
@@ -9973,7 +9996,7 @@
             All rendered editors
             </summary>
         </member>
-        <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.ExpansionPanel">
+        <member name="P:MudBlazor.Extensions.Components.ObjectEdit.MudExObjectEdit`1.DynamicComponentRef">
             <summary>
             ExpansionPanels
             </summary>

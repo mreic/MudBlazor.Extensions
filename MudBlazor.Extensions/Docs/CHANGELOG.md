@@ -1,4 +1,17 @@
 ## Change Log    
+ - 8.11.0 > MudExObject edit now supports grouping by tabs and accordions. See sample [here](https://www.mudex.org/mudex-object-edit-tabs)
+ - 8.11.0 > Small bug fixes
+ - 8.9.0 > Support touch events for dialog dragging
+ - 8.9.0 > Fixes bug with icon picker if no value is specified
+ - 8.9.0 > Fixes bug with custom size in non modal dialogs
+ - 8.9.0 > Update MudBlazor to 8.9.0 and other Packages to latest version 
+ - 8.8.0 > Update MudBlazor to 8.8.0 and other Packages to latest version 
+ - 8.8.0 > Fix Bug in MudExOneDriveFilePicker where the file couldnt be loaded when AutoLoadDataBytes is true
+ - 8.7.0 > Update MudBlazor to 8.7.0
+ - 8.7.0 > Fix bug in SnapDrag Mode for dialog
+ - 8.6.1 > New finally implemented SnapDrag Mode for dialog. Sample available [here](https://www.mudex.org/dialog-snap)
+ - 8.6.0 > Improve performance for lightbulb on cards
+ - 8.6.0 > Update MudBlazor to 8.6.0
  - 8.5.2 > Fix bug where no focus in searchbox is possible in MudExSelect
  - 8.5.2 > DialogService now has more helping methods like PickAsync, SelectAsync or EditAsync for items editing
  - 8.5.0 > Update to MudBlazor 8.5.0
