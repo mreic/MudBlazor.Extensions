@@ -57,7 +57,7 @@
                 element.play();
             }
             //stream.getTracks().forEach(track => track.stop());
-            this._preselected[selectedTrack.id] = stream;
+            this._preselected[selectedTrack.id] = this._preselected[selectedTrack.getSettings().deviceId] = stream;
             return {
                 id: selectedTrack.id,
                 label: selectedTrack.label,
@@ -79,6 +79,9 @@
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
             delete this._preselected[trackId];
+            if (stream.getVideoTracks()[0].getSettings().deviceId) {
+                delete this._preselected[stream.getVideoTracks()[0].getSettings().deviceId];
+            }
         }
     }
 
@@ -141,19 +144,21 @@
                     recorder.stop();
                 } catch (e) { }
             });
-            recording.streams.forEach(stream => {
-                if (stream && typeof stream.getTracks === 'function') {
-                    stream.getTracks().forEach(track => {
-                        try {
-                            track.stop();
-                        } catch (e) { }
-                    });
+            if (recording.options.stopStreamsOnStopRecording) {
+                recording.streams.forEach(stream => {
+                    if (stream && typeof stream.getTracks === 'function') {
+                        stream.getTracks().forEach(track => {
+                            try {
+                                track.stop();
+                            } catch (e) { }
+                        });
+                    }
+                });
+                if (recording.audioContext) {
+                    try {
+                        recording.audioContext.close();
+                    } catch (e) { }
                 }
-            });
-            if (recording.audioContext) {
-                try {
-                    recording.audioContext.close();
-                } catch (e) { }
             }
             delete this.recordings[id];
         }
@@ -236,16 +241,24 @@
                 ? options.videoDevice
                 : options.videoDevice?.deviceId;
 
-            const constraints = typeof options.videoDevice === 'string' ? {} : options.videoDevice;
-
-            const videoParam = this.prepareVideoConstraints(videoDeviceId, constraints);
-
-            try {
-                streams.camera = await navigator.mediaDevices.getUserMedia(videoParam);
-
-            } catch (e) {
-                console.error('Error while accessing the camera:', e);
+            if (options.videoDevice && this._preselected[videoDeviceId]) {
+                streams.camera = this._preselected[videoDeviceId];
+                //delete this._preselected[options.screenSource.id];
             }
+            else {
+                const constraints = typeof options.videoDevice === 'string' ? {} : options.videoDevice;
+
+                const videoParam = this.prepareVideoConstraints(videoDeviceId, constraints);
+
+                try {
+                    streams.camera = await navigator.mediaDevices.getUserMedia(videoParam);
+
+                } catch (e) {
+                    console.error('Error while accessing the camera:', e);
+                }
+            }
+
+            
         }
 
         // Audio Streams
@@ -270,36 +283,36 @@
         const recorders = [];
 
         // Main recorder
-        if (streams.screen) {
-            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType });
+        if (streams.screen && options.recordingOptions.seperateScreenRecording) {
+            const screenRecorder = new MediaRecorder(streams.screen, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             screenRecorder.ondataavailable = event => chunks.screen.push(event.data);
             recorders.push(screenRecorder);
         }
 
         // System Audio Recorder
-        if (streams.systemAudio) {
-            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType });
+        if (streams.systemAudio && options.recordingOptions.seperateSystemAudioRecording) {
+            const systemAudioRecorder = new MediaRecorder(streams.systemAudio, { mimeType: audioContentType, audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             systemAudioRecorder.ondataavailable = event => chunks.systemAudio.push(event.data);
             recorders.push(systemAudioRecorder);
         }
 
         // Cam Recorder
-        if (streams.camera) {
-            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType });
+        if (streams.camera && options.recordingOptions.seperateCameraRecording) {
+            const cameraRecorder = new MediaRecorder(streams.camera, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000) });
             cameraRecorder.ondataavailable = event => chunks.camera.push(event.data);
             recorders.push(cameraRecorder);
         }
 
         // Mic Audio Recorder
-        if (streams.audio) {
-            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType });
+        if (streams.audio && options.recordingOptions.seperateMicAudioRecording) {
+            const audioRecorder = new MediaRecorder(streams.audio, { mimeType: audioContentType, audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             audioRecorder.ondataavailable = event => chunks.audio.push(event.data);
             recorders.push(audioRecorder);
         }
 
         // Combined Recorder
         if (combinedStream) {
-            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType });
+            const combinedRecorder = new MediaRecorder(combinedStream, { mimeType: options.contentType, videoBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.videoBitsPerSecond ?? 2500000), audioBitsPerSecond: (options.recordingOptions.mediaRecorderOptions.audioBitsPerSecond ?? 128000) });
             combinedRecorder.ondataavailable = event => chunks.combined.push(event.data);
             combinedRecorder.onstop = async () => {
                 if (canvas && canvas.stream) {
@@ -318,7 +331,8 @@
             systemAudioStream: streams.systemAudio,
             combinedStream,
             canvas,
-            audioContext: streams.audioContext
+            audioContext: streams.audioContext,
+            options
         };
 
         if (result.screenStream) {
@@ -588,6 +602,7 @@
             cameraData: await createBlobData(camera, options.contentType),
             audioData: await createBlobData(audio, options.audioContentType || 'audio/webm'),
             systemAudioData: await createBlobData(systemAudio, options.audioContentType || 'audio/webm'),
+            //combinedData: await createBlobData(combined, options.contentType + ", " + options.audioContentType),
             combinedData: await createBlobData(combined, options.contentType),
             options: options,
             captureId: id
